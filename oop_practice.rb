@@ -1,33 +1,66 @@
 class Notebook
-	attr_accessor :array
-	def add_note
-		@notebook = Array.new
-		@notebook[0] = "bloknot1"
-	end
-	def clean
-		@notebook.clear
-		puts 'Чисто: ' + (@notebook.inspect)
-	end
-	class SharedNotebook
-		def add_note
-			@shared = true
-		end
-		def count
-		end
-	end
+  attr_accessor :notebook
+  notebook = Array.new
+  def add_note(note)
+    notebook.push(note)
+  end
+  def clean
+    @notebook.clear
+    puts 'Чисто: ' + (notebook.inspect)
+  end
+end
+
+class SharedNotebook < Notebook
+  attr_accessor :SharedNotebook
+  SharedNotebook = Array.new
+  def add_note(note)
+    note.shared = true
+    SharedNotebook.push(note)
+  end
+  def count
+    self.count
+  end
 end
 
 class Note
-	attr_accessor :shared, :text
+  attr_accessor :shared, :text
   def share
-  	@shared = true
-	end
+    @shared = true
+  end
 end
 
-#вывод
-notebook = Notebook.new
-notebook.add_note
-
+#создаём массив
+nb = Notebook.new
+nb.notebook = []
+#создаём элементы массива: 3 записи в блокнот
 note = Note.new
 note.shared = false
-note.text = 'Hello, world.'
+note.text = 'Test'
+nb.add_note(note)
+
+note2 = Note.new
+note2.shared = false
+note2.text = 'Test2'
+nb.add_note(note2)
+
+note3 = Note.new
+note3.shared = false
+note3.text = 'Test3'
+nb.add_note(note3)
+
+#Выводим массив Notebook
+puts "\n"
+puts 'Массив Notebook'
+puts nb.inspect
+#Создаём SharedNotebook
+snb = SharedNotebook.new
+snb.SharedNotebook = []
+#копируем в него заметки из nb
+snb = nb.dup
+#Выводим массив SharedNotebook
+puts "\n"
+puts 'Массив SharedNotebook'
+puts snb.inspect
+puts "\n"
+#Подсчёт элементов в массиве SharedNotebook
+snb.count
