@@ -1,24 +1,23 @@
 class Notebook
   attr_accessor :notebook
-  notebook = Array.new
   def add_note(note)
     notebook.push(note)
   end
   def clean
-    @notebook.clear
+    notebook.clear
     puts 'Чисто: ' + (notebook.inspect)
   end
 end
 
 class SharedNotebook < Notebook
-  attr_accessor :SharedNotebook
-  SharedNotebook = Array.new
+  def initialize(count)
+    @count = 1
+  end
   def add_note(note)
     note.shared = true
-    SharedNotebook.push(note)
+    notebook.push(note)
   end
   def count
-    self.count
   end
 end
 
@@ -56,7 +55,7 @@ puts nb.inspect
 
 #Создаём SharedNotebook
 snb = SharedNotebook.new
-snb.SharedNotebook = []
+snb = []
 
 #копируем в него заметки из nb
 snb = nb.dup
@@ -68,4 +67,3 @@ puts snb.inspect
 puts "\n"
 
 #Подсчёт элементов в массиве SharedNotebook
-snb.count
