@@ -32,6 +32,7 @@ end
 #создаём массив
 nb = Notebook.new
 nb.notebook = []
+
 #создаём элементы массива: 3 записи в блокнот
 note = Note.new
 note.shared = false
@@ -52,15 +53,19 @@ nb.add_note(note3)
 puts "\n"
 puts 'Массив Notebook'
 puts nb.inspect
+
 #Создаём SharedNotebook
 snb = SharedNotebook.new
 snb.SharedNotebook = []
+
 #копируем в него заметки из nb
 snb = nb.dup
+
 #Выводим массив SharedNotebook
 puts "\n"
 puts 'Массив SharedNotebook'
 puts snb.inspect
 puts "\n"
+
 #Подсчёт элементов в массиве SharedNotebook
 snb.count
