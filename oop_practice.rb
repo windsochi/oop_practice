@@ -1,33 +1,37 @@
 class Notebook
+  @@notebooks_count = 0
   attr_accessor :notebook
+
+  def self.count
+    @@notebooks_count
+  end
+
   def add_note(note)
     notebook.push(note)
   end
+
   def clean
     notebook.clear
     puts 'Чисто: ' + (notebook.inspect)
   end
+
 end
 
 class SharedNotebook < Notebook
-  @@notebooks_count = 0
+
   def initialize
-    @id = @@notebooks_count += 1
+    @@notebooks_count += 1
   end
+
   def add_note(note)
     note.shared = true
     notebook.push(note)
-  end
-  def count
-    @@notebooks_count
-  end
-  def self.count
-    @@notebooks_count
   end
 end
 
 class Note
   attr_accessor :shared, :text
+
   def share
     @shared = true
   end
@@ -60,7 +64,6 @@ puts nb.inspect
 
 #Создаём SharedNotebook
 snb = SharedNotebook.new
-snb = []
 
 #копируем в него заметки из nb
 snb = nb.dup
