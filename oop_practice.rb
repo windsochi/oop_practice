@@ -10,14 +10,19 @@ class Notebook
 end
 
 class SharedNotebook < Notebook
-  def initialize(count)
-    @count = 1
+  @@notebooks_count = 0
+  def initialize
+    @id = @@notebooks_count += 1
   end
   def add_note(note)
     note.shared = true
     notebook.push(note)
   end
   def count
+    @@notebooks_count
+  end
+  def self.count
+    @@notebooks_count
   end
 end
 
@@ -67,3 +72,6 @@ puts snb.inspect
 puts "\n"
 
 #Подсчёт элементов в массиве SharedNotebook
+puts 'Всего общих блокнотов: '
+puts SharedNotebook.count
+puts "\n"
