@@ -1,9 +1,18 @@
 class Notebook
-  @@notebooks_count = 0
+
   attr_accessor :notebook
 
+  class << self
+    attr_accessor :ncount
+  end
+
+  def initialize
+    self.class.ncount ||= 0
+    self.class.ncount += 1
+  end
+
   def self.count
-    @@notebooks_count
+    self.ncount
   end
 
   def add_note(note)
@@ -19,14 +28,11 @@ end
 
 class SharedNotebook < Notebook
 
-  def initialize
-    @@notebooks_count += 1
-  end
-
   def add_note(note)
     note.shared = true
     notebook.push(note)
   end
+
 end
 
 class Note
